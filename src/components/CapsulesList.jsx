@@ -5,6 +5,20 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useDigitalTimeCapsule } from '../contexts/DigitalTimeCapsuleContext';
 
+// Helper function to calculate time remaining
+const getTimeRemaining = (unlockTime) => {
+  const now = new Date();
+  const timeDiff = unlockTime - now;
+  const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+};
+
 export const CapsulesList = () => {
   const { capsules, loading, error, revealCapsule } = useDigitalTimeCapsule();
   const [selectedCapsule, setSelectedCapsule] = useState(null);
